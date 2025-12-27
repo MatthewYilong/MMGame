@@ -1,0 +1,71 @@
+---
+title: "Compare Three Methods"
+output: html_document
+date: "2025-12-21"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+library(gmp)              
+library(dplyr)
+cbbPalette <- c("#E69F00", "#56B4E9", "#009E73","#F0E442", "#0072B2", "#D55E00", "#CC79A7")
+```
+
+
+```{r}
+method1_df <- read.csv("~/Desktop/research/Data/tie_prob_method1.csv")
+method2_df <- read.csv("~/Desktop/research/Data/tie_prob_method2.csv")
+method3_df <- read.csv("~/Desktop/research/Data/tie_prob_method3.csv")
+```
+
+```{r}
+method1_df$prob <- as.numeric(as.bigq(method1_df$gf))
+method2_df$prob <- as.numeric(as.bigq(method2_df$gf))
+method3_df$prob <- as.numeric(as.bigq(method3_df$gf))
+```
+
+```{r}
+df1 <- method1_df %>%
+  filter(d1 == 1, I1 == I2)
+df2 <- method2_df %>%
+  filter(d1 == 1, d2 == 1, I1 == I2)
+df3 <- method3_df %>%
+  filter(d1 == 1, d2 == 1, I1 == I2)
+```
+
+
+```{r}
+p <- ggplot() +
+  geom_line(data = df1, aes(I1, prob, color = "Method 1"), linewidth = 1.2, alpha = 0.7) +
+  geom_line(data = df2, aes(I1, prob, color = "Method 2"), linewidth = 1.2, alpha = 0.7) +
+  geom_line(data = df3, aes(I1, prob, color = "Method 3"), linewidth = 1.2, alpha = 0.7) +
+  scale_color_manual(
+    name = "Method",
+    values = cbbPalette[1:3]
+  ) +
+  labs(
+    title = "Comparing Probabilities for Each Method",
+    x = "Starting Number of MMs",
+    y = "Probability"
+  ) +
+  theme_minimal()
+```
+
+```{r}
+p
+```
+
+```{r}
+ggsave(
+  filename = "/Users/matthewwu/desktop/research/Plots/probability_comparison.eps",
+  plot = p,
+  device = cairo_ps,
+  width = 6,
+  height = 4,
+  units = "in"
+)
+```
+
+
+ 
