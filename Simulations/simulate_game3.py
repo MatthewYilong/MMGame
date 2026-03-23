@@ -1,14 +1,14 @@
 import csv
 from itertools import product
 from tqdm import tqdm
-from Code.Model.PartialTwoCoinModel import PartialTwoCoinModel
+from Model.TwoCoinModel import TwoCoinModel
 
-OUTFILE = "/Users/matthewwu/desktop/research/Data/tie_prob_game2.csv"
+OUTFILE = "PUT YOUR FILE PATH HERE"
 
 MAX_I = 100
 MAX_d = 20
 
-model = PartialTwoCoinModel(
+model = TwoCoinModel(
     max_I1=MAX_I,
     max_I2=MAX_I,
     max_d1=MAX_d,

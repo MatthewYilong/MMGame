@@ -1,9 +1,9 @@
 import csv
 from itertools import product
 from tqdm import tqdm
-from Code.Model.OneCoinModel import OneCoinModel
+from Model.OneCoinModel import OneCoinModel
 
-OUTFILE = "/Users/matthewwu/desktop/research/Data/tie_prob_game1.csv"
+OUTFILE = "PUT YOUR FILE PATH HERE"
 
 MAX_I = 100
 MAX_d = 20
